@@ -1,0 +1,62 @@
+package com.myProjects.myRecipe.domain;
+
+import javax.persistence.*;
+import java.io.Serializable;
+
+/**
+ * Created by osboxes on 21/05/17.
+ */
+@Entity
+@Table(name = "RecipeItem")
+public class RecipeItem implements Serializable {
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue
+    @Column(name = "RECIPEITEM_ID")
+    private long Id;
+    @Column(name = "Quantity")
+    private int quantity;
+    @OneToOne(cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Ingredient ingredient;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Recipe_ID", nullable = false)
+    private Recipe recipe = null;
+
+    public RecipeItem() {
+
+    }
+
+    public long getId() {
+        return Id;
+    }
+
+    public void setId(long Id) {
+        this.Id = Id;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public Ingredient getIngredient() {
+        return ingredient;
+    }
+
+    public void setIngredient(Ingredient ingredient) {
+        this.ingredient = ingredient;
+    }
+
+    public Recipe getRecipe() {
+        return recipe;
+    }
+}
