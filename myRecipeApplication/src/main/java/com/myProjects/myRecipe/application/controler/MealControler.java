@@ -1,14 +1,14 @@
 package com.myProjects.myRecipe.application.controler;
 
 
-import com.myProjects.myRecipe.com.myProjects.myRecipe.repository.dao.MealServiceDAO;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.myProjects.myRecipe.domain.Ingredient;
 import com.myProjects.myRecipe.domain.Meal;
 import com.myProjects.myRecipe.domain.Recipe;
 import com.myProjects.myRecipe.domain.RecipeItem;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.myProjects.myRecipe.repository.dao.impl.MealServiceDAO;
 
 public class MealControler {
 

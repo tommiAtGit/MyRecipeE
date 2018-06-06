@@ -2,9 +2,10 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.myProjects.myRecipe</groupId>
   <artifactId>myRecipe-parent</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>myRecipe-parent</name>
+  <url>http://maven.apache.org</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
@@ -44,9 +45,9 @@
 
 </dependencies>
   <modules>
-  	<module>../myRecipeApplication</module>
   	<module>../myRecipeDomain</module>
   	<module>../myRecipeRepository</module>
+  	<module>../myRecipeApplication</module>
   	<module>../myRecipeWeb</module>
   </modules>
 </project>
