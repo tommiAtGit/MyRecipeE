@@ -8,6 +8,7 @@ package com.myProjects.myRecipe.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Table;
 import javax.persistence.Id;
 import java.io.Serializable;
@@ -20,8 +21,8 @@ public class Ingredient implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-    @GeneratedValue
-    @Column(name="Ingredient_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="Ingredient_ID",unique = true, nullable = false)
     private long Id;
     @Column(name="Name")
     private String name;

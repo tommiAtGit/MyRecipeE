@@ -7,7 +7,7 @@
 		<class>com.myProjects.myRecipe.domain.Ingredient</class>
 		<class>com.myProjects.myRecipe.domain.Meal</class>
 		<class>com.myProjects.myRecipe.domain.Recipe</class>
-		<class>com.myProjects.myRecipe.domain.RecipeItems</class>	
+		<class>com.myProjects.myRecipe.domain.RecipeItem</class>	
 		<properties>
 			<!-- Configuring The Database Connection Details -->
 			 <property name="RuntimeUnenhancedClasses" value="supported"/>
@@ -26,7 +26,7 @@
 		<class>com.myProjects.myRecipe.domain.Ingredient</class>
 		<class>com.myProjects.myRecipe.domain.Meal</class>
 		<class>com.myProjects.myRecipe.domain.Recipe</class>
-		<class>com.myProjects.myRecipe.domain.RecipeItems</class>		
+		<class>com.myProjects.myRecipe.domain.RecipeItem</class>		
 		<properties>
 			 <property name="RuntimeUnenhancedClasses" value="supported"/>
       		<property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver"/>

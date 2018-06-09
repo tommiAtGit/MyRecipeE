@@ -15,17 +15,17 @@ public class RecipeItem implements Serializable {
      */
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue
-    @Column(name = "RECIPEITEM_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "RECIPEITEM_ID",unique = true, nullable = false)
     private long Id;
     @Column(name = "Quantity")
     private int quantity;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private Ingredient ingredient;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Recipe_ID", nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "Id", nullable = false)
     private Recipe recipe = null;
 
     public RecipeItem() {

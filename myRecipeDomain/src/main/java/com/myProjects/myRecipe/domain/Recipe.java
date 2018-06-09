@@ -1,9 +1,20 @@
 package com.myProjects.myRecipe.domain;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  * Created by osboxes on 21/05/17.
@@ -17,16 +28,16 @@ public class Recipe implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-    @GeneratedValue
-    @Column(name="Recipe_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="Recipe_ID",unique = true, nullable = false)
     private long Id;
     @Column(name="Name")
     private String Name;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "recipe")
     private List<RecipeItem> recipeItems = new ArrayList<RecipeItem>();
-    //@ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "Meal_ID", nullable = false)
-  //  private Meal meal;
+    @ManyToOne
+    @JoinColumn(name = "MEAL_RECIPE", nullable = false)
+    private Meal meal;
 
 
 

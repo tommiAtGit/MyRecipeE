@@ -1,18 +1,24 @@
 package com.myProjects.myRecipe.application.controler;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.myProjects.myRecipe.domain.Ingredient;
 
+import jdk.nashorn.internal.ir.annotations.Ignore;
+
 public class IngredientControlerTest {
 
-	@Autowired
-	private Ingredient ingredient;
 	private IngredientControler ingredientC = null;
 	@Before
 	public void setUp() throws Exception {
@@ -25,25 +31,101 @@ public class IngredientControlerTest {
 
 	@Test
 	public void  addIgredientTest(){
-		fail("Not implemented");
+		Ingredient actualIng = null;
+		Ingredient savedIng = null;
+	
+		savedIng = ingredientC.addIgredient(this.createIngredient());
+		assertNotNull("Was null", savedIng);
+		savedIng.setId(1);
+		actualIng = ingredientC.getIngredient(savedIng);
+		assertEquals(savedIng.getName(), actualIng.getName());
+		assertEquals(savedIng.getManufacturer(), actualIng.getManufacturer());
 	}
 	
 	@Test
 	public void getIngredients(){
-		fail("Not implemented");
-	}
-	
-	@Test
-	public void getIngredientTest(){
-		fail("Not implemented");
+		List <Ingredient> actualIngs = null;
+		List <Ingredient> ings = this.createListOfIncredients();
+		for (Ingredient ing:ings) {
+			Ingredient savedIng = null;
+			savedIng = ingredientC.addIgredient(ing);
+			assertNotNull("Was null", savedIng);
+		}
+		
+		actualIngs = ingredientC.getIngredients();
+		assertNotNull("The list was null", actualIngs);
+		assertEquals(actualIngs.size(),2);
+		assertEquals(actualIngs.get(0).getName(), ings.get(0).getName());
+		assertEquals(actualIngs.get(0).getManufacturer(), ings.get(0).getManufacturer());
+		assertEquals(actualIngs.get(1).getName(), ings.get(1).getName());
+		assertEquals(actualIngs.get(1).getManufacturer(), ings.get(1).getManufacturer());
+		
+		Ingredient testI = ingredientC.getIngredient(actualIngs.get(1));
+		assertNotNull("Was null", testI);
+		
 	}
 	
 	@Test
 	public void deleteIncredient(){
-		fail("Not implemented");
+		List <Ingredient> actualIngs = null;
+		List <Ingredient> ings = this.createListOfIncredients();
+		for (Ingredient ing:ings) {
+			Ingredient savedIng = null;
+			savedIng = ingredientC.addIgredient(ing);
+			assertNotNull("Was null", savedIng);
+		}
+		
+		actualIngs = ingredientC.getIngredients();
+		assertNotNull("The list was null", actualIngs);
+		assertEquals(actualIngs.size(),2);
+		assertEquals(actualIngs.get(0).getName(), ings.get(0).getName());
+		assertEquals(actualIngs.get(0).getManufacturer(), ings.get(0).getManufacturer());
+		assertEquals(actualIngs.get(1).getName(), ings.get(1).getName());
+		assertEquals(actualIngs.get(1).getManufacturer(), ings.get(1).getManufacturer());
+		
+		ingredientC.deleteIncredient(actualIngs.get(1));
+		Ingredient testI = ingredientC.getIngredient(actualIngs.get(1));
+		assertNull("Was Not null", testI);
 	}
 	
-	private void createIcredient() {
+	private Ingredient createIngredient() {
+		Ingredient ingredient  = new Ingredient();
+		ingredient.setEnergy(32);
+		ingredient.setCarbonHydrates(4.9);
+		ingredient.setFat(0.1);
+		ingredient.setProtein(3.0);
+		ingredient.setName("Rasvaton maito");
+		ingredient.setCategory("pöö");
+		ingredient.setManufacturer("Valio");
+		
+		return ingredient;
+		
+		
+	}
+	private List<Ingredient> createListOfIncredients() {
+		List<Ingredient> ings = new ArrayList<Ingredient>();
+		
+		Ingredient ingredient  = new Ingredient();
+		ingredient.setEnergy(32);
+		ingredient.setCarbonHydrates(4.9);
+		ingredient.setFat(0.1);
+		ingredient.setProtein(3.0);
+		ingredient.setName("Rasvaton maito");
+		ingredient.setCategory("pöö");
+		ingredient.setManufacturer("Valio");
+		ings.add(ingredient);
+
+		Ingredient ingredientTwo  = new Ingredient();
+		ingredientTwo.setEnergy(382);
+		ingredientTwo.setCarbonHydrates(60.0);
+		ingredientTwo.setFat(7.2);
+		ingredientTwo.setProtein(13.0);
+		ingredientTwo.setName("Kaurahiutale");
+		ingredientTwo.setCategory("pöö");
+		ingredientTwo.setManufacturer("Raisio");
+		ings.add(ingredientTwo);
+
+		return ings;
 		
 	}
 

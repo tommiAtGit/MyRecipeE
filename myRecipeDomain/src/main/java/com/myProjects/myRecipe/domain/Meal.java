@@ -17,13 +17,13 @@ public class Meal implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-    @GeneratedValue
-    @Column(name="Meal_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="Meal_ID",unique = true, nullable = false)
     private long Id;
     @Column(name="Name")
     private String Name;
     @Column(name="Recipe")
-    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL )
+    @OneToMany(mappedBy = "meal")
     private List<Recipe> recipes = new ArrayList<Recipe>();
     @Column(name="Quantity")
     private int quantity;

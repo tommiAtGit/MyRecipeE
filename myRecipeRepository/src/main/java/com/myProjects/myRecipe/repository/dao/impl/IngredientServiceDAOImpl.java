@@ -86,6 +86,23 @@ public class IngredientServiceDAOImpl extends DaoBase implements IngredientServi
 			
 		}
 	}
+	/*
+	 * Fetch single object form database
+	 */
+	public Ingredient findIngredient(Ingredient ing) {
+		Ingredient hA = null;
+		
+		 try {
+			 hA =em.find(Ingredient.class, ing.getId());
+		 }
+		catch(Exception ex) {
+					//TODO: Replace me with some kind of logging
+					System.out.println(this.getClass().getName() + "-- findIngredient(): Error occured: " + ex.getMessage());
+					ex.printStackTrace(); 
+		}
+		return hA;
+	}
+	
 	
 
 }

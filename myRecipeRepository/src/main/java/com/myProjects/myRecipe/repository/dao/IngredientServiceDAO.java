@@ -24,5 +24,7 @@ public interface IngredientServiceDAO {
 	 * @param ing
 	 */
 	void removeIngredient(Ingredient ing);
+	
+	Ingredient findIngredient(Ingredient ing);
 
 }

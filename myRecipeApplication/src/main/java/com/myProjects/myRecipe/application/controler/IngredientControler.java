@@ -15,14 +15,14 @@ public class IngredientControler {
 	
 	public IngredientControler(String persistenceUnitName) {
 		this.persistenceUnitName = persistenceUnitName;
-		IngredientServiceDAO ingService  = new IngredientServiceDAOImpl(this.persistenceUnitName);
+		ingService  = new IngredientServiceDAOImpl(this.persistenceUnitName);
 	}
 	
 	public Ingredient addIgredient(Ingredient ing){
 		
 		Ingredient ingredient = null;
 		if (ing != null){
-			ingService.save(ing);
+			ingredient = ingService.save(ing);
 		}
 		return ingredient;
 	}
@@ -31,8 +31,16 @@ public class IngredientControler {
 		ingredientItems = ingService.fetchListOf();
 		return ingredientItems;
 	}
-	public Ingredient getIngredient(long id){
-		return null;
+	
+	public Ingredient getIngredient(Ingredient ingredient ){
+		Ingredient ing = null;
+		
+		if (ingredient != null) {
+			ing = ingService.findIngredient(ingredient);
+		}
+		
+		return ing;
+		
 	}
 	public void deleteIncredient(Ingredient ing ){
 		if (ing != null) {
