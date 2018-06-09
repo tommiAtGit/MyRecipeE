@@ -3,8 +3,6 @@ package com.myProjects.myRecipe.application.controler;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,7 +104,7 @@ public class IngredientControlerTest {
 		assertEquals(actualIngs.size(),3);
 		
 		manufacLst = ingredientC.getIngredientsByManufacture("Valio");
-		assertEquals(actualIngs.size(),2);
+		assertEquals(manufacLst.size(),2);
 		
 	}
 	private Ingredient createIngredient() {

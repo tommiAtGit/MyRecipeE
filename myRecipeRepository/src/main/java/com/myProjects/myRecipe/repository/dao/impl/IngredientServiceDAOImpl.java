@@ -82,8 +82,6 @@ public class IngredientServiceDAOImpl extends DaoBase implements IngredientServi
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			  
-			
 		}
 	}
 	/*

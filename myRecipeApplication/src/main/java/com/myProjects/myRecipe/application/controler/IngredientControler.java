@@ -10,12 +10,10 @@ import com.myProjects.myRecipe.repository.dao.impl.IngredientServiceDAOImpl;
 
 public class IngredientControler {
 
-	private String persistenceUnitName = null;
 	private IngredientServiceDAO ingService = null;
 	
 	public IngredientControler(String persistenceUnitName) {
-		this.persistenceUnitName = persistenceUnitName;
-		ingService  = new IngredientServiceDAOImpl(this.persistenceUnitName);
+		ingService  = new IngredientServiceDAOImpl(persistenceUnitName);
 	}
 	
 	public Ingredient addIgredient(Ingredient ing){
