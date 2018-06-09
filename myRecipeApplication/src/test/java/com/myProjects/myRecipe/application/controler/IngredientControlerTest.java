@@ -54,7 +54,7 @@ public class IngredientControlerTest {
 		
 		actualIngs = ingredientC.getIngredients();
 		assertNotNull("The list was null", actualIngs);
-		assertEquals(actualIngs.size(),2);
+		assertEquals(actualIngs.size(),3);
 		assertEquals(actualIngs.get(0).getName(), ings.get(0).getName());
 		assertEquals(actualIngs.get(0).getManufacturer(), ings.get(0).getManufacturer());
 		assertEquals(actualIngs.get(1).getName(), ings.get(1).getName());
@@ -77,7 +77,7 @@ public class IngredientControlerTest {
 		
 		actualIngs = ingredientC.getIngredients();
 		assertNotNull("The list was null", actualIngs);
-		assertEquals(actualIngs.size(),2);
+		assertEquals(actualIngs.size(),3);
 		assertEquals(actualIngs.get(0).getName(), ings.get(0).getName());
 		assertEquals(actualIngs.get(0).getManufacturer(), ings.get(0).getManufacturer());
 		assertEquals(actualIngs.get(1).getName(), ings.get(1).getName());
@@ -88,6 +88,27 @@ public class IngredientControlerTest {
 		assertNull("Was Not null", testI);
 	}
 	
+	@Ignore
+	//@Test
+	public void getIngredientsByManufactureTest() {
+		List <Ingredient> actualIngs = null;
+		List<Ingredient>manufacLst = null;
+		
+		List <Ingredient> ings = this.createListOfIncredients();
+		for (Ingredient ing:ings) {
+			Ingredient savedIng = null;
+			savedIng = ingredientC.addIgredient(ing);
+			assertNotNull("Was null", savedIng);
+		}
+		
+		actualIngs = ingredientC.getIngredients();
+		assertNotNull("The list was null", actualIngs);
+		assertEquals(actualIngs.size(),3);
+		
+		manufacLst = ingredientC.getIngredientsByManufacture("Valio");
+		assertEquals(actualIngs.size(),2);
+		
+	}
 	private Ingredient createIngredient() {
 		Ingredient ingredient  = new Ingredient();
 		ingredient.setEnergy(32);
@@ -124,6 +145,16 @@ public class IngredientControlerTest {
 		ingredientTwo.setCategory("pöö");
 		ingredientTwo.setManufacturer("Raisio");
 		ings.add(ingredientTwo);
+		
+		Ingredient ingredientThree  = new Ingredient();
+		ingredientThree.setEnergy(92);
+		ingredientThree.setCarbonHydrates(2.5);
+		ingredientThree.setFat(2.0);
+		ingredientThree.setProtein(15.8);
+		ingredientThree.setName("Raejuusto");
+		ingredientThree.setCategory("pöö");
+		ingredientThree.setManufacturer("Valio");
+		ings.add(ingredientThree);
 
 		return ings;
 		

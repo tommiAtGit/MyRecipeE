@@ -42,12 +42,16 @@ public class IngredientControler {
 		return ing;
 		
 	}
+	public List<Ingredient> getIngredientsByManufacture(String manufacture){
+		List<Ingredient> mf = null;
+		if (!manufacture.isEmpty() || manufacture != null) {
+			mf = ingService.findByManufacture(manufacture);
+		}
+		return mf;
+	}
 	public void deleteIncredient(Ingredient ing ){
 		if (ing != null) {
 			ingService.removeIngredient(ing);
 		}
-		
-		
-		
 	}
 }

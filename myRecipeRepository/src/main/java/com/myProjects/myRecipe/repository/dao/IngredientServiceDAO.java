@@ -26,5 +26,6 @@ public interface IngredientServiceDAO {
 	void removeIngredient(Ingredient ing);
 	
 	Ingredient findIngredient(Ingredient ing);
+	List<Ingredient> findByManufacture(String manafacturer);
 
 }
