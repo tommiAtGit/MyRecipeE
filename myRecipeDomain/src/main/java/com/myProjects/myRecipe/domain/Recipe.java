@@ -34,7 +34,7 @@ public class Recipe implements Serializable {
     @OneToMany(mappedBy = "recipe")
     private List<RecipeItem> recipeItems = new ArrayList<RecipeItem>();
     @ManyToOne
-    @JoinColumn(name = "MEAL_RECIPE", nullable = false)
+    @JoinColumn(name = "RECIPE_MEAL", nullable = true)
     private Meal meal;
 
 

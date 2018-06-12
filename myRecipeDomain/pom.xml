@@ -8,8 +8,8 @@
   </parent>
   <groupId>com.myProjects.myRecipe.Domain</groupId>
   <artifactId>myRecipeDomain</artifactId>
-  <name>myRecipeDomon</name>
-  
+  <name>myRecipeDomain</name>
+    <version>0.0.1-SNAPSHOT</version>
   <properties>
   	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
@@ -30,5 +30,5 @@
 		<version>1.0.2</version>
 	</dependency>
 </dependencies>
-  <version>0.0.1-SNAPSHOT</version>
+
 </project>

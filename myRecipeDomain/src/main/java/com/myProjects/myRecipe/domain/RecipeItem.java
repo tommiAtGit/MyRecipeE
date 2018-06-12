@@ -24,9 +24,9 @@ public class RecipeItem implements Serializable {
     @PrimaryKeyJoinColumn
     private Ingredient ingredient;
 
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    @JoinColumn(name = "Id", nullable = false)
-    private Recipe recipe = null;
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JoinColumn(name = "ITEM_RECIPE", nullable = true)
+    private Recipe recipe;
 
     public RecipeItem() {
 
@@ -56,7 +56,13 @@ public class RecipeItem implements Serializable {
         this.ingredient = ingredient;
     }
 
-    public Recipe getRecipe() {
-        return recipe;
-    }
+	public Recipe getRecipe() {
+		return recipe;
+	}
+
+	public void setRecipe(Recipe recipe) {
+		this.recipe = recipe;
+	}
+
+   
 }

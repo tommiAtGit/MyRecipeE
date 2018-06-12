@@ -43,11 +43,11 @@
   		<artifactId>mysql-connector-java</artifactId>
   		<version>5.1.34</version>
   	</dependency>
-  		<dependency>
-			<groupId>com.myProjects.myRecipe</groupId>
-			<artifactId>myRecipeDomain</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
+  	<dependency>
+  		<groupId>com.myProjects.myRecipe.Domain</groupId>
+  		<artifactId>myRecipeDomain</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
   </dependencies>
   <version>0.0.1-SNAPSHOT</version>
 </project>
