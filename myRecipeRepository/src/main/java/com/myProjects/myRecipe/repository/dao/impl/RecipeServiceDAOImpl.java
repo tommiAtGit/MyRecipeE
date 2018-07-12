@@ -65,9 +65,6 @@ public class RecipeServiceDAOImpl extends DaoBase implements RecipeServiceDAO {
 	/* (non-Javadoc)
 	 * @see com.myProjects.myRecipe.repository.dao.impl.RecipeServiceDAO#findRecipe(com.myProjects.myRecipe.domain.Recipe)
 	 */
-	/* (non-Javadoc)
-	 * @see com.myProjects.myRecipe.repository.dao.impl.RecipeServiceDAO#findRecipe(com.myProjects.myRecipe.domain.Recipe)
-	 */
 	public Recipe findRecipe(Recipe res) {
 		
 		Recipe recipe = null;
