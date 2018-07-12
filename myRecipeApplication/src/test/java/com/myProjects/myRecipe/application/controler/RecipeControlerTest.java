@@ -16,6 +16,7 @@ import org.junit.Test;
 import com.myProjects.myRecipe.domain.Ingredient;
 import com.myProjects.myRecipe.domain.Recipe;
 import com.myProjects.myRecipe.domain.RecipeItem;
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 
 public class RecipeControlerTest {
 
@@ -24,6 +25,9 @@ public class RecipeControlerTest {
 	
 	private IngredientControler ingredientC = null;
 	private RecipeControler recipeC = null;
+	
+	private static final int MAX_RECIPE_ITEM_COUNT = 4;
+	private static final int MIN_RECIPE_ITEM_COUNT = 2;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -93,12 +97,42 @@ public class RecipeControlerTest {
 
 	@Test
 	public void testAddResipeItem() {
-		fail("Not yet implemented");
+		Recipe savedRecipe = null;
+		RecipeItem item = this.createRecipeItem();
+		
+		savedRecipe = recipeC.addRecipe(testRecipe);
+		assertNotNull("Was null", savedRecipe);
+		
+		Recipe actualRecipe = recipeC.findRecipe(savedRecipe);
+		assertNotNull("Was null", actualRecipe);
+		
+		recipeC.AddResipeItem(actualRecipe, item);
+		
+		//int expectedItemCount = actualRecipe.getRecipeItems().size();
+		Recipe currentRecipe = recipeC.findRecipe(actualRecipe);
+		
+		assertEquals(MAX_RECIPE_ITEM_COUNT, currentRecipe.getRecipeItems().size());
+		
+		
 	}
 
 	@Test
 	public void testRemoveResipeItem() {
-		fail("Not yet implemented");
+		Recipe savedRecipe = null;
+		 
+		savedRecipe = recipeC.addRecipe(testRecipe);
+		assertNotNull("Was null", savedRecipe);
+		
+		Recipe actualRecipe = recipeC.findRecipe(savedRecipe);
+		assertNotNull("Was null", actualRecipe);
+		
+		RecipeItem item = actualRecipe.getRecipeItems().get(0);
+		
+		recipeC.RemoveResipeItem(actualRecipe, item);
+		Recipe currentRecipe = recipeC.findRecipe(actualRecipe);
+		
+		assertEquals(MIN_RECIPE_ITEM_COUNT, currentRecipe.getRecipeItems().size());
+		
 	}
 	private void createRecipe() {
 
@@ -127,6 +161,25 @@ public class RecipeControlerTest {
 		testRecipe.setName("Fist rescipe");
 		testRecipe.setRecipeItems(items);
 		
+	}
+	private RecipeItem createRecipeItem() {
+		Ingredient ing  =new Ingredient();
+		RecipeItem item = new RecipeItem();
+		
+		Ingredient ingredientTwo  = new Ingredient();
+		ingredientTwo.setEnergy(417);
+		ingredientTwo.setCarbonHydrates(1);
+		ingredientTwo.setFat(27);
+		ingredientTwo.setProtein(72);
+		ingredientTwo.setName("Kinkkusuikale");
+		ingredientTwo.setCategory("pöö");
+		ingredientTwo.setManufacturer("Atria");
+		
+		item.setIngredient(ingredientTwo);
+		item.setQuantity(250);
+		item.setRecipe(testRecipe);
+		
+		return item;
 	}
 	private void saveIngredients() {
 		List<Ingredient>ings = new ArrayList<Ingredient>();
