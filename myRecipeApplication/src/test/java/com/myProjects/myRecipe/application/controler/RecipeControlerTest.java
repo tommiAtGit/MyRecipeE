@@ -16,7 +16,6 @@ import org.junit.Test;
 import com.myProjects.myRecipe.domain.Ingredient;
 import com.myProjects.myRecipe.domain.Recipe;
 import com.myProjects.myRecipe.domain.RecipeItem;
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 
 public class RecipeControlerTest {
 
@@ -163,7 +162,6 @@ public class RecipeControlerTest {
 		
 	}
 	private RecipeItem createRecipeItem() {
-		Ingredient ing  =new Ingredient();
 		RecipeItem item = new RecipeItem();
 		
 		Ingredient ingredientTwo  = new Ingredient();

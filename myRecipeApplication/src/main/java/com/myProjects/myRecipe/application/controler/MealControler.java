@@ -1,21 +1,18 @@
 package com.myProjects.myRecipe.application.controler;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.myProjects.myRecipe.domain.Ingredient;
+import org.apache.log4j.Logger;
+
 import com.myProjects.myRecipe.domain.Meal;
 import com.myProjects.myRecipe.domain.Recipe;
-import com.myProjects.myRecipe.domain.RecipeItem;
 import com.myProjects.myRecipe.repository.dao.MealServiceDAO;
-import com.myProjects.myRecipe.repository.dao.RecipeServiceDAO;
 import com.myProjects.myRecipe.repository.dao.impl.MealServiceDAOImpl;
-import com.myProjects.myRecipe.repository.dao.impl.RecipeServiceDAOImpl;
 
 public class MealControler {
 
-	
+	static Logger log = Logger.getLogger(MealControler.class.getName());
 	private MealServiceDAO mealService = null;
 
 
@@ -31,7 +28,7 @@ public class MealControler {
 	 * @return
 	 */
 	public Meal saveMeal(Meal meal ){
-
+		log.info("At start of meal save");
 		Meal savedMeal = null;
 		if (meal != null){
 			savedMeal = mealService.saveMeal(meal);
@@ -43,6 +40,7 @@ public class MealControler {
 	}
 	
 	public List<Meal>fetshMelas(){
+		log.info("fetch meals...");
 		List<Meal> meals = mealService.fetchListOf();
 		return meals;
 	}
@@ -53,6 +51,7 @@ public class MealControler {
 	 * @param meal
 	 */
 	public void deleteMeal(Meal meal) {
+		log.info("Delete meal...");
 		if (meal != null) {
 			mealService.deleteMeal(meal);
 		}
@@ -66,6 +65,7 @@ public class MealControler {
 	 * @return
 	 */
 	public Meal addNewRecipeToMeal(Meal meal, Recipe resipe){
+		log.info("Add new recipe to the meal...");
 		Meal me = null;
 		
 		if ((meal != null) && (resipe != null)){
@@ -86,6 +86,7 @@ public class MealControler {
 	 * @return
 	 */
 	public Meal removeRecipeFromMeal(Meal meal, Recipe recipe) {
+		log.info("Remove recipe from the meal");
 		Meal me = null;
 		if ((meal != null) && (recipe != null)){
 			meal.getRecipe().remove(recipe);

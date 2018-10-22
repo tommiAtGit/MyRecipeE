@@ -28,19 +28,19 @@
 	<dependency>
     	<groupId>org.springframework</groupId>
     	<artifactId>spring-core</artifactId>
-    	<version>5.0.2.RELEASE</version>
+    	<version>5.0.3.RELEASE</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.springframework/spring-beans -->
 	<dependency>
     	<groupId>org.springframework</groupId>
    		<artifactId>spring-beans</artifactId>
-    	<version>5.0.2.RELEASE</version>
+    	<version>5.0.3.RELEASE</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.springframework/spring-tx -->
 	<dependency>
     	<groupId>org.springframework</groupId>
     	<artifactId>spring-tx</artifactId>
-    	<version>5.0.2.RELEASE</version>
+    	<version>5.0.3.RELEASE</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/org.mockito/mockito-all -->
 	<dependency>
@@ -49,6 +49,14 @@
     	<version>1.9.5</version>
     	<scope>test</scope>
 	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/log4j/log4j -->
+	<dependency>
+    	<groupId>log4j</groupId>
+    	<artifactId>log4j</artifactId>
+    	<version>1.2.17</version>
+	</dependency>
+	
 	
 
 </dependencies>

@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.Query;
 
+import org.apache.log4j.Logger;
+
 import com.myProjects.myRecipe.domain.Meal;
 import com.myProjects.myRecipe.repository.dao.DaoBase;
 import com.myProjects.myRecipe.repository.dao.MealServiceDAO;
@@ -13,7 +15,7 @@ import com.myProjects.myRecipe.repository.dao.MealServiceDAO;
 
 public class MealServiceDAOImpl extends DaoBase implements MealServiceDAO{
 
-
+	static Logger log = Logger.getLogger(MealServiceDAOImpl.class.getName());
 	public MealServiceDAOImpl(String persistenceUnit) {
 		super(persistenceUnit);
 
@@ -23,6 +25,7 @@ public class MealServiceDAOImpl extends DaoBase implements MealServiceDAO{
 	 * @see com.myProjects.myRecipe.repository.dao.impl.MealServiceDAO#saveMeal(com.myProjects.myRecipe.domain.Meal)
 	 */
 	public Meal saveMeal(Meal meal){
+		log.info("Save meal...");
 		if (meal != null) {
 			try {
 				if(!em.getTransaction().isActive()) {
@@ -33,10 +36,11 @@ public class MealServiceDAOImpl extends DaoBase implements MealServiceDAO{
 				//em.close();
 			}
 			catch(Exception ex) {
-				//TODO: Replace me with some kind of logging
-				System.out.println(this.getClass().getName() + "-- saveMeal(): Error occured: " + ex.getMessage());
-				ex.printStackTrace();
+				log.error("Error occured while saving meal", ex);
 			}
+		}
+		else {
+			log.error("Meal was null");
 		}
 		
 		return meal;
@@ -47,15 +51,15 @@ public class MealServiceDAOImpl extends DaoBase implements MealServiceDAO{
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Meal> fetchListOf(){
+		log.info("Fetching list of...");
+		
 		List<Meal> mealList = null; 
 		Query q  = em.createQuery("from Meal");
 		 try {
 			 mealList = (List<Meal>) q.getResultList();
 		 }
 		catch(Exception ex) {
-					//TODO: Replace me with some kind of logging
-					System.out.println(this.getClass().getName() + "-- fetchListOf(): Error occured: " + ex.getMessage());
-					ex.printStackTrace(); 
+			log.error("Error occured while fetching list of..", ex);
 		}
 		return mealList;
 	}
