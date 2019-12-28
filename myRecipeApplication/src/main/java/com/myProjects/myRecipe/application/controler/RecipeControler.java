@@ -4,6 +4,8 @@ package com.myProjects.myRecipe.application.controler;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.myProjects.myRecipe.domain.Recipe;
 import com.myProjects.myRecipe.domain.RecipeItem;
 import com.myProjects.myRecipe.repository.dao.RecipeServiceDAO;
@@ -12,6 +14,7 @@ import com.myProjects.myRecipe.repository.dao.impl.RecipeServiceDAOImpl;
 public class RecipeControler {
 
 	private RecipeServiceDAO recipeService = null;
+	static Logger log = Logger.getLogger(RecipeControler.class.getName());
 	
 	public RecipeControler(String persistenceUnitName) {
 		recipeService  = new RecipeServiceDAOImpl(persistenceUnitName);
@@ -23,11 +26,17 @@ public class RecipeControler {
 	 */
 	public Recipe addRecipe(Recipe recipe){
 		
+		log.info("Adding new recipe...");
 		Recipe returnRes = null;
 		if (recipe != null) {
 			returnRes = recipeService.saveRecipe(recipe);
+			return returnRes;
 		}
-		return returnRes;
+		else {
+			log.error("Agument exception occured: Recipe is null");
+			throw new IllegalArgumentException("Recipe argument is null");
+		}
+		
 	}
 	
 	/**
@@ -37,7 +46,16 @@ public class RecipeControler {
 	 */
 	public Recipe findRecipeByName(String name){
 		Recipe recipe = null;
-		return recipe;
+		log.info("finding recipe by name");
+		
+		if ((!name.isEmpty()) && (name != null)) {
+			return recipe;
+		}
+		else {
+			log.error("Agument exception occured: Recipe is null");
+			throw new IllegalArgumentException("Recipe argument is null");
+		}
+		
 	}
 	
 	/**

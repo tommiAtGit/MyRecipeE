@@ -35,7 +35,8 @@ public class MealControler {
 			return savedMeal;
 		}
 		else{
-			return null;
+			log.error("Agument exception occured. Meal argment is null");
+			throw new IllegalArgumentException("Meal argument is null");
 		}	
 	}
 	
@@ -54,6 +55,10 @@ public class MealControler {
 		log.info("Delete meal...");
 		if (meal != null) {
 			mealService.deleteMeal(meal);
+		}
+		else {
+			log.error("Agument exception occured. Meal argment is null");
+			throw new IllegalArgumentException("Meal argument is null");
 		}
 		
 	}
@@ -74,7 +79,8 @@ public class MealControler {
 			return me;
 		}
 		else{
-			return null;
+			log.error("Agument exception occured. Meal or recipe argment is null");
+			throw new IllegalArgumentException("Meal or recipe argument is null");
 		}
 		
 	}
@@ -94,7 +100,8 @@ public class MealControler {
 			return me;
 		}
 		else{
-			return null;
+			log.error("Agument exception occured. Meal argment is null");
+			throw new IllegalArgumentException("Meal argument is null");
 		}
 	}
 	
