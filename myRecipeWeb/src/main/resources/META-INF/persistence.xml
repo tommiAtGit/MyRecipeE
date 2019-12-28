@@ -29,7 +29,8 @@
 		<class>com.myProjects.myRecipe.domain.RecipeItem</class>		
 		<properties>
 			 <property name="RuntimeUnenhancedClasses" value="supported"/>
-      		<property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver"/>
+      		<property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriv
+er"/>
       		<property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:mem:myRecipeDB"/>
       		<property name="javax.persistence.jdbc.user" value="sa"/>
       		<property name="javax.persistence.jdbc.password" value=""/>
@@ -38,3 +39,5 @@
 		</properties>
 	</persistence-unit>
 </persistence>
+
+

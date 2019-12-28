@@ -9,11 +9,11 @@ import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.myProjects.myRecipe.domain.Ingredient;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
 
 public class IngredientControlerTest {
 
