@@ -43,16 +43,56 @@ public class RecipeControlerTest {
 	@Test
 	public void testAddRecipe() {
 		Recipe savedRecipe = null;
-		savedRecipe = recipeC.addRecipe(testRecipe);
+
+		try {
+			savedRecipe = recipeC.addRecipe(testRecipe);
+		} catch (Exception e) {
+			fail();
+		}
 		assertNotNull("Was null", savedRecipe);
 		
-		Recipe actualRecipe = recipeC.findRecipe(savedRecipe);
+		Recipe actualRecipe = null;
+		try {
+			actualRecipe = recipeC.findRecipe(savedRecipe);
+		} catch (Exception e) {
+			fail();
+		}
 		assertNotNull("Was null", actualRecipe);
 		assertEquals(savedRecipe.getName(), actualRecipe.getName());
 		assertEquals(savedRecipe.getRecipeItems().size(), actualRecipe.getRecipeItems().size());
 		assertEquals(savedRecipe.getRecipeItems().get(1).getIngredient().getName(), actualRecipe.getRecipeItems().get(1).getIngredient().getName());
 		
 		
+	}
+	@Test
+	public void testAddRecipeValidation() {
+		
+		try {
+			Recipe savedRecipe = recipeC.addRecipe(null);
+			savedRecipe.getName();
+			fail();
+		} catch (Exception e) {
+			
+		}
+		testRecipe.setName("");
+		try {
+			testRecipe.setRecipeItems(null);
+			Recipe savedRecipe = recipeC.addRecipe(testRecipe);
+			savedRecipe.getName();
+			fail();
+		} catch (Exception e) {
+		
+		}
+		try {
+			testRecipe.setName("Pommi");
+			testRecipe.setRecipeItems(null);
+			Recipe savedRecipe = recipeC.addRecipe(testRecipe);
+			savedRecipe.getName();
+			fail();
+		} catch (Exception e) {
+			
+		}
+
 	}
 
 	@Ignore
@@ -64,10 +104,19 @@ public class RecipeControlerTest {
 	@Test
 	public void testGetAllRecipes() {
 		Recipe savedRecipe = null;
-		savedRecipe = recipeC.addRecipe(testRecipe);
+		try {
+			savedRecipe = recipeC.addRecipe(testRecipe);
+		} catch (Exception e) {
+			fail();
+		}
 		assertNotNull("Was null", savedRecipe);
 		
-		List <Recipe> actualRecipes = recipeC.getAllRecipes();
+		List<Recipe> actualRecipes = null;
+		try {
+			actualRecipes = recipeC.getAllRecipes();
+		} catch (Exception e) {
+			fail();
+		}
 		assertNotNull("Was null", actualRecipes);
 		assertEquals(actualRecipes.size(),1);
 		for (Recipe actualRecipe: actualRecipes) {
@@ -81,15 +130,33 @@ public class RecipeControlerTest {
 	@Test
 	public void testRemoveRecipe() {
 		Recipe savedRecipe = null;
-		savedRecipe = recipeC.addRecipe(testRecipe);
+		try {
+			savedRecipe = recipeC.addRecipe(testRecipe);
+		} catch (Exception e) {
+			fail();
+		}
 		assertNotNull("Was null", savedRecipe);
 		
-		Recipe actualRecipe = recipeC.findRecipe(savedRecipe);
+		Recipe actualRecipe = null;
+		try {
+			actualRecipe = recipeC.findRecipe(savedRecipe);
+		} catch (Exception e) {
+			fail();
+		}
 		assertNotNull("Was null", actualRecipe);
 		
-		recipeC.removeRecipe(actualRecipe);
+		try {
+			recipeC.removeRecipe(actualRecipe);
+		} catch (Exception e) {
+			fail();
+		}
 		
-		Recipe nullRecipe = recipeC.findRecipe(actualRecipe);
+		Recipe nullRecipe = null;
+		try {
+			nullRecipe = recipeC.findRecipe(actualRecipe);
+		} catch (Exception e) {
+			fail();
+		}
 		assertNull(nullRecipe);
 		
 	}
@@ -99,16 +166,34 @@ public class RecipeControlerTest {
 		Recipe savedRecipe = null;
 		RecipeItem item = this.createRecipeItem();
 		
-		savedRecipe = recipeC.addRecipe(testRecipe);
+		try {
+			savedRecipe = recipeC.addRecipe(testRecipe);
+		} catch (Exception e) {
+			fail();
+		}
 		assertNotNull("Was null", savedRecipe);
 		
-		Recipe actualRecipe = recipeC.findRecipe(savedRecipe);
+		Recipe actualRecipe = null;
+		try {
+			actualRecipe = recipeC.findRecipe(savedRecipe);
+		} catch (Exception e) {
+			fail();
+		}
 		assertNotNull("Was null", actualRecipe);
 		
-		recipeC.AddResipeItem(actualRecipe, item);
+		try {
+			recipeC.AddResipeItem(actualRecipe, item);
+		} catch (Exception e) {
+			fail();
+		}
 		
 		//int expectedItemCount = actualRecipe.getRecipeItems().size();
-		Recipe currentRecipe = recipeC.findRecipe(actualRecipe);
+		Recipe currentRecipe = null;
+		try {
+			currentRecipe = recipeC.findRecipe(actualRecipe);
+		} catch (Exception e) {
+			fail();
+		}
 		
 		assertEquals(MAX_RECIPE_ITEM_COUNT, currentRecipe.getRecipeItems().size());
 		
@@ -119,18 +204,36 @@ public class RecipeControlerTest {
 	public void testRemoveResipeItem() {
 		Recipe savedRecipe = null;
 		 
-		savedRecipe = recipeC.addRecipe(testRecipe);
+		try {
+			savedRecipe = recipeC.addRecipe(testRecipe);
+		} catch (Exception e) {
+			fail();
+		}
 		assertNotNull("Was null", savedRecipe);
 		
-		Recipe actualRecipe = recipeC.findRecipe(savedRecipe);
+		Recipe actualRecipe = null;
+		try {
+			actualRecipe = recipeC.findRecipe(savedRecipe);
+		} catch (Exception e) {
+			fail();
+		}
 		assertNotNull("Was null", actualRecipe);
 		
 		RecipeItem item = actualRecipe.getRecipeItems().get(0);
 		
-		recipeC.RemoveResipeItem(actualRecipe, item);
-		Recipe currentRecipe = recipeC.findRecipe(actualRecipe);
-		
-		assertEquals(MIN_RECIPE_ITEM_COUNT, currentRecipe.getRecipeItems().size());
+		try {
+			recipeC.RemoveResipeItem(actualRecipe, item);
+		} catch (Exception e) {
+			fail();
+		}
+		Recipe currentRecipe = null;
+		try {
+			currentRecipe = recipeC.findRecipe(actualRecipe);
+		} catch (Exception e) {
+			fail();
+		}
+		int currentItemCount = currentRecipe.getRecipeItems().size();
+		assertEquals(MIN_RECIPE_ITEM_COUNT,currentItemCount );
 		
 	}
 	private void createRecipe() {

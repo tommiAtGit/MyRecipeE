@@ -3,6 +3,7 @@ package com.myProjects.myRecipe.application.controler;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,11 @@ public class IngredientControlerTest {
 		Ingredient actualIng = null;
 		Ingredient savedIng = null;
 	
-		savedIng = ingredientC.addIgredient(this.createIngredient());
+		try {
+			savedIng = ingredientC.addIgredient(this.createIngredient());
+		} catch (Exception e) {
+			
+		}
 		assertNotNull("Was null", savedIng);
 		savedIng.setId(1);
 		actualIng = ingredientC.getIngredient(savedIng);
@@ -58,9 +63,24 @@ public class IngredientControlerTest {
 		assertEquals(actualIngs.get(1).getName(), ings.get(1).getName());
 		assertEquals(actualIngs.get(1).getManufacturer(), ings.get(1).getManufacturer());
 		
-		Ingredient testI = ingredientC.getIngredient(actualIngs.get(1));
+		Ingredient testI = null;
+		try {
+			testI = ingredientC.getIngredient(actualIngs.get(1));
+		} catch (Exception e) {
+			fail("Exception occured");
+		}
 		assertNotNull("Was null", testI);
 		
+	}
+	@Test
+	public void getIngredientsNullArgument() {
+		Ingredient testI = null;
+		try {
+			testI = ingredientC.getIngredient(null);
+			fail("Exception occured");
+		} catch (Exception e) {
+			assertNull("Should be null", testI);
+		}
 	}
 	
 	@Test
@@ -81,22 +101,37 @@ public class IngredientControlerTest {
 		assertEquals(actualIngs.get(1).getName(), ings.get(1).getName());
 		assertEquals(actualIngs.get(1).getManufacturer(), ings.get(1).getManufacturer());
 		
-		ingredientC.deleteIncredient(actualIngs.get(1));
+		try {
+			ingredientC.deleteIncredient(actualIngs.get(1));
+		} catch (Exception e) {
+			fail("Exception occured");
+		}
 		Ingredient testI = ingredientC.getIngredient(actualIngs.get(1));
 		assertNull("Was Not null", testI);
 	}
-	
+	@Test
+	public void deleteIncredientNullArgument() {
+		Ingredient ing = null;
+		try {
+			ingredientC.deleteIncredient(ing);
+			fail();
+		}
+		catch(Exception Ex) {
+			return;
+		}
+	}
 	@Ignore
 	//@Test
 	public void getIngredientsByManufactureTest() {
 		List <Ingredient> actualIngs = null;
 		List<Ingredient>manufacLst = null;
 		
+		//Create and save ingredients
 		List <Ingredient> ings = this.createListOfIncredients();
 		for (Ingredient ing:ings) {
 			Ingredient savedIng = null;
 			savedIng = ingredientC.addIgredient(ing);
-			assertNotNull("Was null", savedIng);
+			assertNotNull("Some error occured while saving ingredient. Was null", savedIng);
 		}
 		
 		actualIngs = ingredientC.getIngredients();
@@ -107,6 +142,8 @@ public class IngredientControlerTest {
 		assertEquals(manufacLst.size(),2);
 		
 	}
+	
+	
 	private Ingredient createIngredient() {
 		Ingredient ingredient  = new Ingredient();
 		ingredient.setEnergy(32);

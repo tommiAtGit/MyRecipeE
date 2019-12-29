@@ -53,21 +53,36 @@ public class IngredientControler {
 		
 		if (ingredient != null) {
 			ing = ingService.findIngredient(ingredient);
+			return ing;
 		}
-		
-		return ing;
+		else {
+			throw new IllegalArgumentException("Error ocured in arguments");
+		}
 		
 	}
+	/**
+	 * Return list of ingredient sorted by manufacture
+	 * @param manufacture
+	 * @return
+	 */
 	public List<Ingredient> getIngredientsByManufacture(String manufacture){
 		List<Ingredient> mf = null;
-		if (!manufacture.isEmpty() || manufacture != null) {
+		if ((!manufacture.isEmpty()) && (manufacture != null)) {
 			mf = ingService.findByManufacture(manufacture);
+			return mf;
 		}
-		return mf;
+		else {
+			throw new IllegalArgumentException("Error ocured in arguments");
+			
+		}
+		
 	}
 	public void deleteIncredient(Ingredient ing ){
 		if (ing != null) {
 			ingService.removeIngredient(ing);
+		}
+		else {
+			throw new IllegalArgumentException("Ingredient was null");
 		}
 	}
 }

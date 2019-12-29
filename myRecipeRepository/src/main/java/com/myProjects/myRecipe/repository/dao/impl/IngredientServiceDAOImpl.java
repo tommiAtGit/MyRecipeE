@@ -107,17 +107,23 @@ public class IngredientServiceDAOImpl extends DaoBase implements IngredientServi
 	@SuppressWarnings("unchecked")
 	public List<Ingredient> findByManufacture(String mf){
 		List<Ingredient> ingList = null; 
-		Query q  = em.createQuery("select m from Ingredient m where m.manufacturer = :mf");
-		q.setParameter("manufacturer", mf);
-		 try {
-			 ingList = (List<Ingredient>) q.getResultList();
-		 }
-		catch(Exception ex) {
-					//TODO: Replace me with some kind of logging
-					System.out.println(this.getClass().getName() + "-- findByManufacture(): Error occured: " + ex.getMessage());
-					ex.printStackTrace(); 
+		if ((mf.isEmpty())&&(mf != null)) {
+			Query q  = em.createQuery("select m from Ingredient m where m.manufacturer = :mf");
+			q.setParameter("manufacturer", mf);
+			 try {
+				 ingList = (List<Ingredient>) q.getResultList();
+			 }
+			catch(Exception ex) {
+						//TODO: Replace me with some kind of logging
+						System.out.println(this.getClass().getName() + "-- findByManufacture(): Error occured: " + ex.getMessage());
+						ex.printStackTrace(); 
+			}
+			return ingList;
 		}
-		return ingList;
+		else {
+			throw new IllegalArgumentException("Error ocured in arguments");
+		}
+
 	}
 	
 	

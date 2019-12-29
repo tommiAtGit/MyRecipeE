@@ -28,11 +28,11 @@
   		<version>7.0</version>
   		<scope>provided</scope>
   	</dependency>
-  	<dependency>
+  	<!--  <dependency>
   		<groupId>org.apache.openjpa</groupId>
   		<artifactId>openjpa</artifactId>
   		<version>2.4.0</version>
-  	</dependency>
+  	</dependency> -->
   	<dependency>
     	<groupId>org.hsqldb</groupId>
     	<artifactId>hsqldb</artifactId>
