@@ -4,6 +4,10 @@ import java.util.List;
 
 import javax.persistence.Query;
 
+import org.apache.log4j.Logger;
+
+
+
 /**
  * Created by osboxes on 21/05/17.
  */
@@ -16,6 +20,8 @@ import com.myProjects.myRecipe.repository.dao.IngredientServiceDAO;
 
 public class IngredientServiceDAOImpl extends DaoBase implements IngredientServiceDAO {
 
+	static Logger log = Logger.getLogger(IngredientServiceDAOImpl.class.getName());
+	
 	public IngredientServiceDAOImpl(String persistenceUnit) {
 		super(persistenceUnit);
 		
@@ -26,6 +32,7 @@ public class IngredientServiceDAOImpl extends DaoBase implements IngredientServi
 	 * @see com.myProjects.myRecipe.repository.dao.impl.IngredientServiceDAO#save(com.myProjects.myRecipe.domain.Ingredient)
 	 */
 	public Ingredient save(Ingredient ing){
+		
 		if (ing != null) {
 			try {
 				
@@ -37,17 +44,18 @@ public class IngredientServiceDAOImpl extends DaoBase implements IngredientServi
 				em.merge(ing);
 				em.getTransaction().commit();
 				//em.close();
+				return ing;
 				
 			}
 			catch(Exception ex) {
-				//TODO: Replace me with some kind of logging
-				System.out.println(this.getClass().getName() + "-- save(): Error occured: " + ex.getMessage());
-				ex.printStackTrace();
-				
+				log.error("Error occured while saving ingredient: "+ ex.getMessage());
+				throw ex;
 			}
-			
 		}
-		return ing;
+		else {
+			throw new IllegalArgumentException("Ingredient argument is null");
+		}
+		
 	}
 	
 	/* (non-Javadoc)
@@ -59,13 +67,13 @@ public class IngredientServiceDAOImpl extends DaoBase implements IngredientServi
 		Query q  = em.createQuery("from Ingredient");
 		 try {
 			 ingList = (List<Ingredient>) q.getResultList();
+			 return ingList;
 		 }
 		catch(Exception ex) {
-					//TODO: Replace me with some kind of logging
-					System.out.println(this.getClass().getName() + "-- fetchListOf(): Error occured: " + ex.getMessage());
-					ex.printStackTrace(); 
+			log.error("Error occured: " + ex.getMessage());
+			throw ex;
 		}
-		return ingList;
+		
 	}
 	/* (non-Javadoc)
 	 * @see com.myProjects.myRecipe.repository.dao.impl.IngredientServiceDAO#removeIngredient(com.myProjects.myRecipe.domain.Ingredient)
@@ -78,9 +86,9 @@ public class IngredientServiceDAOImpl extends DaoBase implements IngredientServi
 				em.getTransaction().begin();
 				em.remove(hA);
 				em.getTransaction().commit();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (Exception ex) {
+				log.error("Error occured while removing ingredinet: " + ex.getMessage());
+				throw ex;
 			}
 		}
 	}
@@ -89,16 +97,21 @@ public class IngredientServiceDAOImpl extends DaoBase implements IngredientServi
 	 */
 	public Ingredient findIngredient(Ingredient ing) {
 		Ingredient hA = null;
-		
-		 try {
-			 hA =em.find(Ingredient.class, ing.getId());
-		 }
-		catch(Exception ex) {
-					//TODO: Replace me with some kind of logging
-					System.out.println(this.getClass().getName() + "-- findIngredient(): Error occured: " + ex.getMessage());
-					ex.printStackTrace(); 
+		if (ing != null) {
+			 try {
+				 hA =em.find(Ingredient.class, ing.getId());
+				 return hA;
+			 }
+			catch(Exception ex) {
+				log.error("Error occures while finding ingredient:" + ex.getMessage());
+				throw ex;
+			}
 		}
-		return hA;
+		else {
+			throw new IllegalArgumentException("Ingredient argument is null");
+		}
+		
+		
 	}
 	
 	/*
@@ -112,15 +125,16 @@ public class IngredientServiceDAOImpl extends DaoBase implements IngredientServi
 			q.setParameter("manufacturer", mf);
 			 try {
 				 ingList = (List<Ingredient>) q.getResultList();
+				 return ingList;
 			 }
 			catch(Exception ex) {
-						//TODO: Replace me with some kind of logging
-						System.out.println(this.getClass().getName() + "-- findByManufacture(): Error occured: " + ex.getMessage());
-						ex.printStackTrace(); 
+				log.error("Error occured while finding by manafacture: " + ex.getMessage());
+				throw ex;
 			}
-			return ingList;
+			
 		}
 		else {
+			log.error("Argument error occured");
 			throw new IllegalArgumentException("Error ocured in arguments");
 		}
 

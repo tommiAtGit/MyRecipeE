@@ -3,6 +3,8 @@ package com.myProjects.myRecipe.application.controler;
 
 import java.util.List;
 
+import javax.xml.bind.ValidationException;
+
 import org.apache.log4j.Logger;
 
 import com.myProjects.myRecipe.domain.Meal;
@@ -12,6 +14,9 @@ import com.myProjects.myRecipe.repository.dao.impl.MealServiceDAOImpl;
 
 public class MealControler {
 
+	private static final int MEAL_NAME_VALIDATION_ERROR = 1;
+	private static final int MEAL_RESIPE_VALIDATION_ERROR = 2;
+	private static final int MEAL_QUANTITY_VALIDATION_ERROR = 3;
 	static Logger log = Logger.getLogger(MealControler.class.getName());
 	private MealServiceDAO mealService = null;
 
@@ -26,13 +31,22 @@ public class MealControler {
 	 * Save new meal to database
 	 * @param meal
 	 * @return
+	 * @throws ValidationException 
 	 */
-	public Meal saveMeal(Meal meal ){
+	public Meal saveMeal(Meal meal ) throws ValidationException{
 		log.info("At start of meal save");
 		Meal savedMeal = null;
+		
 		if (meal != null){
-			savedMeal = mealService.saveMeal(meal);
-			return savedMeal;
+			if(this.validateMeal(meal)< 1) {
+				savedMeal = mealService.saveMeal(meal);
+				return savedMeal;
+			}
+			else {
+				log.error("Meal validatoin error occured");
+				throw new ValidationException("Meal argument is null");
+			}
+			
 		}
 		else{
 			log.error("Agument exception occured. Meal argment is null");
@@ -103,6 +117,24 @@ public class MealControler {
 			log.error("Agument exception occured. Meal argment is null");
 			throw new IllegalArgumentException("Meal argument is null");
 		}
+	}
+	private int validateMeal(Meal meal) {
+		
+		int result = 0;
+		if ((meal.getName() == null) || (meal.getName().isEmpty())){
+			result = MEAL_NAME_VALIDATION_ERROR;
+		}
+		else if(meal.getRecipe() == null){
+			result = MEAL_RESIPE_VALIDATION_ERROR;
+		}
+		else if (meal.getQuantity()< 1) {
+			result = MEAL_QUANTITY_VALIDATION_ERROR;
+		}
+		else {
+			
+		}
+		
+		return result;
 	}
 	
 }
