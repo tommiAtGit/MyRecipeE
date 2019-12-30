@@ -34,16 +34,19 @@ public class MealServiceDAOImpl extends DaoBase implements MealServiceDAO{
 				em.persist(meal);
 				em.getTransaction().commit();
 				//em.close();
+				return meal;
 			}
 			catch(Exception ex) {
 				log.error("Error occured while saving meal", ex);
+				throw ex;
 			}
 		}
 		else {
-			log.error("Meal was null");
+			log.error("Argument error occured");
+			throw new IllegalArgumentException("Argument error occured");
 		}
 		
-		return meal;
+		
 	}
 	
 	/* (non-Javadoc)
@@ -60,6 +63,7 @@ public class MealServiceDAOImpl extends DaoBase implements MealServiceDAO{
 		 }
 		catch(Exception ex) {
 			log.error("Error occured while fetching list of..", ex);
+			throw ex;
 		}
 		return mealList;
 	}
@@ -70,22 +74,20 @@ public class MealServiceDAOImpl extends DaoBase implements MealServiceDAO{
 	public Meal findMeal(Meal meal) {
 		Meal fm = null;
 		
-		if (meal == null) {
-			//TODO: Replace me with some kind of logging
-			System.out.println(this.getClass().getName() + "-- findMeal(): Meal equals null -- ");
-			return null; 
-		}
-		else {
+		
+		if (meal != null) {
 			try {
 				fm =em.find(Meal.class, meal.getId());
+				return fm;
 			 }
 			catch(Exception ex) {
-				//TODO: Replace me with some kind of logging
-				System.out.println(this.getClass().getName() + "-- findMeal(): Error occured: " + ex.getMessage());
-				ex.printStackTrace(); 
+				log.error("Error occured while finding meal with Id: " + meal.getId());
+				throw ex;
 			}
-			
-			return fm;	
+		}
+		else {
+			log.error("Argument error occured");
+			throw new IllegalArgumentException("Argument error occured");
 		}
 	
 	}
@@ -102,21 +104,21 @@ public class MealServiceDAOImpl extends DaoBase implements MealServiceDAO{
 					em.getTransaction().begin();
 					em.remove(me);
 					em.getTransaction().commit();
-				} catch (Exception e) {
-					//TODO: Replace me with some kind of logging
-					System.out.println(this.getClass().getName() + "-- deleteRecipe(): Error occured: " + e.getMessage());
-					e.printStackTrace(); 
+				} catch (Exception ex) {
+					log.error("Error occured while deleting meal :" + ex.getMessage());
+					throw ex;
 				}
 			}
 			else {
 				//TODO: Replace me with some kind of logging
-				System.out.println(this.getClass().getName() + "-- deleteMeal(): No meal found with id: " + meal.getId() + " -- "); 
+				log.info("Meal not found with id: " + meal.getId()); 
 			}
 			
 		}
 		else {
-			//TODO: Replace me with some kind of logging
-			System.out.println(this.getClass().getName() + "-- deleteMeal(): Meal equals null -- "); 
+			log.error("Argument error occured while deleting meal: meal is null");
+			throw new IllegalArgumentException("Argument error occured");
+			
 		}
 	}
 	/* (non-Javadoc)

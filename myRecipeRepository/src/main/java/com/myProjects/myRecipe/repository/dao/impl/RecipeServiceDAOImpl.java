@@ -6,7 +6,7 @@ import javax.persistence.Query;
 
 import org.apache.log4j.Logger;
 
-import com.myProjects.myRecipe.domain.Ingredient;
+
 import com.myProjects.myRecipe.domain.Recipe;
 import com.myProjects.myRecipe.repository.dao.DaoBase;
 import com.myProjects.myRecipe.repository.dao.RecipeServiceDAO;
