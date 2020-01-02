@@ -3,7 +3,6 @@ package com.myProjects.myRecipe.application.controler;
 
 import java.util.List;
 
-import javax.xml.bind.ValidationException;
 
 import org.apache.log4j.Logger;
 
@@ -33,19 +32,25 @@ public class MealControler {
 	 * @return
 	 * @throws ValidationException 
 	 */
-	public Meal saveMeal(Meal meal ) throws ValidationException{
+	public Meal saveMeal(Meal meal ) {
 		log.info("At start of meal save");
 		Meal savedMeal = null;
 		
 		if (meal != null){
 			if(this.validateMeal(meal)< 1) {
-				savedMeal = mealService.saveMeal(meal);
-				return savedMeal;
+				try {
+					savedMeal = mealService.saveMeal(meal);
+				} catch (Exception e) {
+					log.error("Error occured while saving new meal: "+ e.getMessage());
+				}
+				
 			}
 			else {
 				log.error("Meal validatoin error occured");
-				throw new ValidationException("Meal argument is null");
+				
 			}
+			
+			return savedMeal;
 			
 		}
 		else{
@@ -56,7 +61,13 @@ public class MealControler {
 	
 	public List<Meal>fetshMelas(){
 		log.info("fetch meals...");
-		List<Meal> meals = mealService.fetchListOf();
+		List<Meal> meals = null;
+		try {
+			meals = mealService.fetchListOf();
+		
+		} catch (Exception e) {
+			log.error("Errror occured while fetching meals: "+ e.getMessage());
+		}
 		return meals;
 	}
 
@@ -68,7 +79,11 @@ public class MealControler {
 	public void deleteMeal(Meal meal) {
 		log.info("Delete meal...");
 		if (meal != null) {
-			mealService.deleteMeal(meal);
+			try {
+				mealService.deleteMeal(meal);
+			} catch (Exception e) {
+				log.error("Errror occured while deleting meals: "+ e.getMessage());
+			}
 		}
 		else {
 			log.error("Agument exception occured. Meal argment is null");
@@ -89,7 +104,11 @@ public class MealControler {
 		
 		if ((meal != null) && (resipe != null)){
 			meal.getRecipe().add(resipe);
-			me = mealService.updateMeal(meal);
+			try {
+				me = mealService.updateMeal(meal);
+			} catch (Exception e) {
+				log.error("Errror occured while recipe to meal: "+ e.getMessage());
+			}
 			return me;
 		}
 		else{
@@ -110,7 +129,11 @@ public class MealControler {
 		Meal me = null;
 		if ((meal != null) && (recipe != null)){
 			meal.getRecipe().remove(recipe);
-			me = mealService.updateMeal(meal);
+			try {
+				me = mealService.updateMeal(meal);
+			} catch (Exception e) {
+				log.error("Errror occured while removing recipe from meal: "+ e.getMessage());
+			}
 			return me;
 		}
 		else{

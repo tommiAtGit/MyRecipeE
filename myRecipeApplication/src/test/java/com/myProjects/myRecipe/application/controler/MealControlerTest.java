@@ -2,7 +2,6 @@ package com.myProjects.myRecipe.application.controler;
 
 import static org.junit.Assert.*;
 
-import javax.xml.bind.ValidationException;
 
 import org.junit.After;
 import org.junit.Before;
@@ -34,11 +33,10 @@ public class MealControlerTest {
 	}
 	@Test
 	public void testSaveMealEmptyMeal() {
-		Meal meal = new Meal();
 		try {
-			mealControler.saveMeal(meal);
+			mealControler.saveMeal(this.createTestMeal());
 			fail("There should be exception");
-		} catch (ValidationException Ex) {
+		} catch (Exception Ex) {
 			return;
 		}
 	}

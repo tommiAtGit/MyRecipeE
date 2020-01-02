@@ -31,7 +31,7 @@ public class IngredientServiceDAOImpl extends DaoBase implements IngredientServi
 	/* (non-Javadoc)
 	 * @see com.myProjects.myRecipe.repository.dao.impl.IngredientServiceDAO#save(com.myProjects.myRecipe.domain.Ingredient)
 	 */
-	public Ingredient save(Ingredient ing){
+	public Ingredient save(Ingredient ing) throws Exception{
 		
 		if (ing != null) {
 			try {
@@ -62,7 +62,7 @@ public class IngredientServiceDAOImpl extends DaoBase implements IngredientServi
 	 * @see com.myProjects.myRecipe.repository.dao.impl.IngredientServiceDAO#fetchListOf()
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Ingredient> fetchListOf(){
+	public List<Ingredient> fetchListOf() throws Exception{
 		List<Ingredient> ingList = null; 
 		Query q  = em.createQuery("from Ingredient");
 		 try {
@@ -78,7 +78,7 @@ public class IngredientServiceDAOImpl extends DaoBase implements IngredientServi
 	/* (non-Javadoc)
 	 * @see com.myProjects.myRecipe.repository.dao.impl.IngredientServiceDAO#removeIngredient(com.myProjects.myRecipe.domain.Ingredient)
 	 */
-	public void removeIngredient(Ingredient ing) {
+	public void removeIngredient(Ingredient ing) throws Exception {
 		if(ing != null) {
 			Ingredient hA = em.find(Ingredient.class, ing.getId());
 			
@@ -95,7 +95,7 @@ public class IngredientServiceDAOImpl extends DaoBase implements IngredientServi
 	/*
 	 * Fetch single object form database
 	 */
-	public Ingredient findIngredient(Ingredient ing) {
+	public Ingredient findIngredient(Ingredient ing) throws Exception {
 		Ingredient hA = null;
 		if (ing != null) {
 			 try {
@@ -118,7 +118,7 @@ public class IngredientServiceDAOImpl extends DaoBase implements IngredientServi
 	 * Find ingredient by manufacturer 
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Ingredient> findByManufacture(String mf){
+	public List<Ingredient> findByManufacture(String mf) throws Exception{
 		List<Ingredient> ingList = null; 
 		if ((mf.isEmpty())&&(mf != null)) {
 			Query q  = em.createQuery("select m from Ingredient m where m.manufacturer = :mf");

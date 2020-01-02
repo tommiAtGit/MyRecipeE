@@ -10,27 +10,28 @@ public interface MealServiceDAO {
 	 * Save the meal
 	 * @param meal
 	 */
-	Meal saveMeal(Meal meal);
+	Meal saveMeal(Meal meal) throws Exception;
+
 
 	/**
 	 * Get list of saved meals
 	 * @return
 	 */
-	List<Meal> fetchListOf();
+	List<Meal> fetchListOf()throws Exception;
 
-	Meal findMeal(Meal meal);
+	Meal findMeal(Meal meal)throws Exception;
 
 	/**
 	 * Delete selected meal
 	 * @param meal
 	 */
-	void deleteMeal(Meal meal);
+	void deleteMeal(Meal meal)throws Exception;
 
 	/**
 	 * Update content of selected meal
 	 * @param meal
 	 * @return
 	 */
-	Meal updateMeal(Meal meal);
+	Meal updateMeal(Meal meal)throws Exception;
 
 }

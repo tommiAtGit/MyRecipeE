@@ -11,21 +11,32 @@ public interface IngredientServiceDAO {
 	 * @param ing
 	 * @return
 	 */
-	Ingredient save(Ingredient ing);
+	Ingredient save(Ingredient ing) throws Exception;
 
 	/**
 	 * Fetsh list of ingredients
 	 * @return
 	 */
-	List<Ingredient> fetchListOf();
+	List<Ingredient> fetchListOf()throws Exception;
 
 	/**
 	 * Remove selected ingredient
 	 * @param ing
 	 */
-	void removeIngredient(Ingredient ing);
-	
-	Ingredient findIngredient(Ingredient ing);
-	List<Ingredient> findByManufacture(String manafacturer);
+	void removeIngredient(Ingredient ing)throws Exception;
+	/**
+	 * 
+	 * @param ing
+	 * @return
+	 * @throws Exception
+	 */
+	Ingredient findIngredient(Ingredient ing)throws Exception;
+	/**
+	 * 
+	 * @param manafacturer
+	 * @return
+	 * @throws Exception
+	 */
+	List<Ingredient> findByManufacture(String manafacturer)throws Exception;
 
 }

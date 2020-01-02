@@ -24,7 +24,7 @@ public class MealServiceDAOImpl extends DaoBase implements MealServiceDAO{
 	/* (non-Javadoc)
 	 * @see com.myProjects.myRecipe.repository.dao.impl.MealServiceDAO#saveMeal(com.myProjects.myRecipe.domain.Meal)
 	 */
-	public Meal saveMeal(Meal meal){
+	public Meal saveMeal(Meal meal) throws Exception{
 		log.info("Save meal...");
 		if (meal != null) {
 			try {
@@ -53,7 +53,7 @@ public class MealServiceDAOImpl extends DaoBase implements MealServiceDAO{
 	 * @see com.myProjects.myRecipe.repository.dao.impl.MealServiceDAO#fetchListOf()
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Meal> fetchListOf(){
+	public List<Meal> fetchListOf() throws Exception{
 		log.info("Fetching list of...");
 		
 		List<Meal> mealList = null; 
@@ -71,7 +71,7 @@ public class MealServiceDAOImpl extends DaoBase implements MealServiceDAO{
 	/* (non-Javadoc)
 	 * @see com.myProjects.myRecipe.repository.dao.impl.MealServiceDAO#findMeal(com.myProjects.myRecipe.domain.Meal)
 	 */
-	public Meal findMeal(Meal meal) {
+	public Meal findMeal(Meal meal) throws Exception {
 		Meal fm = null;
 		
 		
@@ -95,7 +95,7 @@ public class MealServiceDAOImpl extends DaoBase implements MealServiceDAO{
 	/* (non-Javadoc)
 	 * @see com.myProjects.myRecipe.repository.dao.impl.MealServiceDAO#deleteMeal(com.myProjects.myRecipe.domain.Meal)
 	 */
-	public void deleteMeal(Meal meal) {
+	public void deleteMeal(Meal meal) throws Exception {
 		
 		if(meal != null) {
 			Meal me = em.find(Meal.class, meal.getId());
@@ -110,7 +110,6 @@ public class MealServiceDAOImpl extends DaoBase implements MealServiceDAO{
 				}
 			}
 			else {
-				//TODO: Replace me with some kind of logging
 				log.info("Meal not found with id: " + meal.getId()); 
 			}
 			
@@ -124,7 +123,7 @@ public class MealServiceDAOImpl extends DaoBase implements MealServiceDAO{
 	/* (non-Javadoc)
 	 * @see com.myProjects.myRecipe.repository.dao.impl.MealServiceDAO#updateMeal(com.myProjects.myRecipe.domain.Meal)
 	 */
-	public Meal updateMeal(Meal meal) {
+	public Meal updateMeal(Meal meal) throws Exception {
 		Meal updMeal = null;
 		
 		if (meal != null) {
@@ -136,18 +135,17 @@ public class MealServiceDAOImpl extends DaoBase implements MealServiceDAO{
 				updMeal = em.merge(meal);
 				em.getTransaction().commit();
 				//em.close();
+				return updMeal;
 			}
 			catch(Exception ex) {
-				//TODO: Replace me with some kind of logging
-				System.out.println(this.getClass().getName() + "-- updateRecipe(): Error occured: " + ex.getMessage());
-				ex.printStackTrace();
+				log.error("Error occured while updating meal " + ex.getMessage());
+				throw ex;
 			}
-			return updMeal;
+			
 		}
 		else {
-			//TODO: Replace me with some kind of logging
-			System.out.println(this.getClass().getName() + "-- updateMeal(): Meal equals null -- ");
-			return null;
+			log.error("Argument error occured while deleting meal: meal is null");
+			throw new IllegalArgumentException("Argument error occured");
 		}
 		
 	}

@@ -3,13 +3,15 @@ package com.myProjects.myRecipe.application.controler;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.myProjects.myRecipe.domain.Ingredient;
 import com.myProjects.myRecipe.repository.dao.IngredientServiceDAO;
 import com.myProjects.myRecipe.repository.dao.impl.IngredientServiceDAOImpl;
 
 
-
+@RestController
 public class IngredientControler {
 	static Logger log = Logger.getLogger(IngredientControler.class.getName());
 	
@@ -23,11 +25,17 @@ public class IngredientControler {
 	 * @param ing
 	 * @return
 	 */
+	@RequestMapping("/add")
 	public Ingredient addIgredient(Ingredient ing){
 		
 		Ingredient ingredient = null;
 		if (ing != null){
-			ingredient = ingService.save(ing);
+			try {
+				ingredient = ingService.save(ing);
+			} catch (Exception e) {
+				log.error("Error occured while saving new ingradiet");
+				
+			}
 			log.info("New ingradinet saved: " + ing.getName());
 			return ingredient;
 		}
@@ -42,17 +50,26 @@ public class IngredientControler {
 	 * 
 	 * @return
 	 */
+	@RequestMapping("/getlistof")
 	public List<Ingredient> getIngredients(){
 		List<Ingredient>ingredientItems = null;
-		ingredientItems = ingService.fetchListOf();
+		try {
+			ingredientItems = ingService.fetchListOf();
+		} catch (Exception e) {
+			log.error("Error occured while fetching lit of Ingredient: " + e.getMessage());
+					}
 		return ingredientItems;
 	}
-	
+	@RequestMapping("/get")
 	public Ingredient getIngredient(Ingredient ingredient ){
 		Ingredient ing = null;
 		
 		if (ingredient != null) {
-			ing = ingService.findIngredient(ingredient);
+			try {
+				ing = ingService.findIngredient(ingredient);
+			} catch (Exception e) {
+				log.error("Error occured while fetching ingredinet " + e.getMessage());
+			}
 			return ing;
 		}
 		else {
@@ -65,10 +82,15 @@ public class IngredientControler {
 	 * @param manufacture
 	 * @return
 	 */
+	@RequestMapping("/getbymanu")
 	public List<Ingredient> getIngredientsByManufacture(String manufacture){
 		List<Ingredient> mf = null;
 		if ((!manufacture.isEmpty()) && (manufacture != null)) {
-			mf = ingService.findByManufacture(manufacture);
+			try {
+				mf = ingService.findByManufacture(manufacture);
+			} catch (Exception e) {
+				log.error("Error occured while fetching ingredinet by manufacture " + e.getMessage());
+			}
 			return mf;
 		}
 		else {
@@ -77,9 +99,15 @@ public class IngredientControler {
 		}
 		
 	}
+	@RequestMapping("/delete")
 	public void deleteIncredient(Ingredient ing ){
 		if (ing != null) {
-			ingService.removeIngredient(ing);
+			try {
+				ingService.removeIngredient(ing);
+			} catch (Exception e) {
+				log.error("Error occured while deleting ingradient " + e.getMessage());
+			
+			}
 		}
 		else {
 			throw new IllegalArgumentException("Ingredient was null");
