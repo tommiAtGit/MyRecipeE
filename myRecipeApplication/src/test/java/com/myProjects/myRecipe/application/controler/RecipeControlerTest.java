@@ -13,6 +13,8 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.myProjects.myRecipe.application.controler.impl.IngredientControlerImpl;
+import com.myProjects.myRecipe.application.controler.impl.RecipeControlerImpl;
 import com.myProjects.myRecipe.domain.Ingredient;
 import com.myProjects.myRecipe.domain.Recipe;
 import com.myProjects.myRecipe.domain.RecipeItem;
@@ -30,8 +32,8 @@ public class RecipeControlerTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		ingredientC = new IngredientControler("MYRECIPE_TEST");
-		recipeC  = new RecipeControler("MYRECIPE_TEST");
+		ingredientC = new IngredientControlerImpl("MYRECIPE_TEST");
+		recipeC  = new RecipeControlerImpl("MYRECIPE_TEST");
 		this.saveIngredients();
 		this.createRecipe();
 	}

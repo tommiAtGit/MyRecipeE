@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.myProjects.myRecipe.application.controler.impl.IngredientControlerImpl;
 import com.myProjects.myRecipe.domain.Ingredient;
 
 
@@ -21,7 +22,7 @@ public class IngredientControlerTest {
 	private IngredientControler ingredientC = null;
 	@Before
 	public void setUp() throws Exception {
-		ingredientC = new IngredientControler("MYRECIPE_TEST");
+		ingredientC = new IngredientControlerImpl("MYRECIPE_TEST");
 	}
 
 	@After

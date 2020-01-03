@@ -7,6 +7,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.myProjects.myRecipe.application.controler.impl.MealControlerImpl;
 import com.myProjects.myRecipe.domain.Meal;
 
 public class MealControlerTest {
@@ -14,7 +15,7 @@ public class MealControlerTest {
 	MealControler mealControler = null;
 	@Before
 	public void setUp() throws Exception {
-		mealControler = new MealControler("MYRECIPE_TEST");
+		mealControler = new MealControlerImpl("MYRECIPE_TEST");
 	}
 
 	@After
